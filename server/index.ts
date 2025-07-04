@@ -1,4 +1,6 @@
 import express, { Request, Response, NextFunction } from "express";
+import cors from "cors";
+import session from "express-session";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 import { camelCaseResponseMiddleware } from './middlewares/camelCaseMiddleware';
@@ -12,7 +14,27 @@ declare global {
 }
 
 const app = express();
+
 app.use(express.json());
+
+// ** Configuración CORS para aceptar solicitudes con cookies desde frontend **
+app.use(cors({
+  origin: "https://easytrackjsn.onrender.com",  // Cambia por la URL de tu frontend en producción
+  credentials: true,
+}));
+
+// ** Configuración de sesión con cookies **
+app.use(session({
+  secret: process.env.SESSION_SECRET || "tu-secreto-por-defecto",
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    secure: process.env.NODE_ENV === "production", // true en producción (requiere HTTPS)
+    sameSite: "none", // Necesario para cookies cross-site
+    maxAge: 24 * 60 * 60 * 1000, // 1 día, ajusta según tus necesidades
+  },
+}));
+
 app.use(camelCaseResponseMiddleware);
 app.use(express.urlencoded({ extended: false }));
 
@@ -81,12 +103,11 @@ if (!global.serverStarted) {
 
     // Manejador de upgrade (WebSocket)
     if (!global.upgradeListenerAdded) {
-      // Eliminamos cualquier listener previo para evitar duplicados
       server.removeAllListeners('upgrade');
 
       server.on('upgrade', (req, socket, head) => {
         if (req.url === '/ws') {
-          if (!socket.destroyed) {  // Verificamos que el socket no esté cerrado
+          if (!socket.destroyed) {
             global.wss!.handleUpgrade(req, socket, head, (ws) => {
               global.wss!.emit('connection', ws, req);
             });
