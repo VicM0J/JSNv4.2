@@ -1,0 +1,156 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(0, 0%, 100%);
+  --foreground: hsl(20, 14.3%, 4.1%);
+  --muted: hsl(60, 4.8%, 95.9%);
+  --muted-foreground: hsl(25, 5.3%, 44.7%);
+  --popover: hsl(0, 0%, 100%);
+  --popover-foreground: hsl(20, 14.3%, 4.1%);
+  --card: hsl(0, 0%, 100%);
+  --card-foreground: hsl(20, 14.3%, 4.1%);
+  --border: hsl(20, 5.9%, 90%);
+  --input: hsl(20, 5.9%, 90%);
+  --primary: #504b78;
+  --primary-foreground: #f8bbed;
+  --secondary: #233154;
+  --secondary-foreground: #f8bbed;
+  --accent: #8c69a5;
+  --accent-foreground: #ffffff;
+  --destructive: #8c69a5;
+  --destructive-foreground: #ffffff;
+  --ring: #233154;
+  --radius: 0.5rem;
+
+  --jasana-primary: #504b78;
+  --jasana-secondary: #233154;
+  --jasana-accent: #8c69a5;
+  --jasana-success: #de8fd9;
+  --jasana-warning: #f8bbed;
+  --jasana-error: #8c69a5;
+}
+
+.dark {
+  --background: hsl(240, 10%, 3.9%);
+  --foreground: hsl(0, 0%, 98%);
+  --muted: hsl(240, 3.7%, 15.9%);
+  --muted-foreground: hsl(240, 5%, 64.9%);
+  --popover: hsl(240, 10%, 3.9%);
+  --popover-foreground: hsl(0, 0%, 98%);
+  --card: hsl(240, 10%, 3.9%);
+  --card-foreground: hsl(0, 0%, 98%);
+  --border: hsl(240, 3.7%, 15.9%);
+  --input: hsl(240, 3.7%, 15.9%);
+  --primary: #504b78;
+  --primary-foreground: #f8bbed;
+  --secondary: #233154;
+  --secondary-foreground: #f8bbed;
+  --accent: #8c69a5;
+  --accent-foreground: #ffffff;
+  --destructive: #8c69a5;
+  --destructive-foreground: #ffffff;
+  --ring: #de8fd9;
+  --radius: 0.5rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--muted));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted-foreground));
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--foreground));
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+.slide-in-right {
+  animation: slideInRight 0.3s ease-out;
+}
+
+.slide-out-right {
+  animation: slideOutRight 0.3s ease-out;
+}
+.badge-corte {
+  @apply bg-[#de8fd9] text-[#233154];
+}
+
+.badge-bordado {
+  @apply bg-[#8c69a5] text-white;
+}
+
+.badge-ensamble {
+  @apply bg-[#504b78] text-white;
+}
+
+.badge-plancha {
+  @apply bg-[#f8bbed] text-[#233154];
+}
+
+.badge-calidad {
+  @apply bg-[#233154] text-white;
+}
+
+.badge-envios {
+  @apply bg-[#8c69a5] text-white;
+}
+
+.badge-admin {
+  @apply bg-[#504b78] text-white;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out;
+}
